@@ -10,7 +10,7 @@
         <el-input v-model="query.communityName" placeholder="小区名称" clearable style="width:150px" />
       </el-form-item>
       <el-form-item label="乡镇/社区">
-        <el-input v-model="query.townCommunity" placeholder="如 上庄镇" clearable style="width:130px" />
+        <el-input v-model="query.townCommunity" placeholder="如 寺家庄镇" clearable style="width:130px" />
       </el-form-item>
       <el-form-item label="运营商">
         <el-select v-model="query.operatorName" placeholder="全部" clearable filterable allow-create style="width:130px">
