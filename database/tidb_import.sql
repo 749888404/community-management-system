@@ -130,9 +130,10 @@ CREATE TABLE `file_record` (
 -- 真实数据导入（映射自本地 sjz_community）
 -- ============================================================
 
--- 系统用户（原样照搬本地 admin）
+-- 系统用户（密码必须是 MD5 哈希，后端 AuthController 用 DigestUtils.md5DigestAsHex 比对；
+--             e10adc3949ba59abbe56e057f20f883e = MD5('123456')，切勿写成明文）
 INSERT INTO `sys_user` (`id`,`username`,`password`,`real_name`,`phone`,`email`,`role`,`status`) VALUES
-(1,'admin','admin123','系统管理员',NULL,NULL,'admin',1);
+(1,'admin','e10adc3949ba59abbe56e057f20f883e','系统管理员',NULL,NULL,'admin',1);
 
 -- 小区（22 个真实小区；manager/phone 来自 property 表，company 来自 property_company，
 --       building_households<-total_households, resident_population<-population, remark="X栋Y单元"）
