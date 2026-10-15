@@ -13,6 +13,7 @@ const routes = [
       { path: 'person', name: 'Person', component: () => import('../views/person/PersonList.vue'), meta: { title: '居民管理' } },
       { path: 'disabled', name: 'Disabled', component: () => import('../views/disabled/DisabledList.vue'), meta: { title: '残疾人管理' } },
       { path: 'station', name: 'Station', component: () => import('../views/station/StationList.vue'), meta: { title: '通讯基站统计' } },
+      { path: 'parking', name: 'Parking', component: () => import('../views/parking/ParkingList.vue'), meta: { title: '车位情况统计' } },
       { path: 'file', name: 'File', component: () => import('../views/file/FileList.vue'), meta: { title: '文件管理' } }
     ]
   }

@@ -28,6 +28,10 @@
           <el-icon><Cpu /></el-icon>
           <span>通讯基站统计</span>
         </el-menu-item>
+        <el-menu-item index="/parking">
+          <el-icon><Van /></el-icon>
+          <span>车位情况统计</span>
+        </el-menu-item>
         <el-menu-item index="/file">
           <el-icon><Folder /></el-icon>
           <span>文件管理</span>
