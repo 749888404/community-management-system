@@ -7,6 +7,9 @@ export function pageCommunities(params) {
 export function listCommunities() {
   return request.get('/community/list')
 }
+export function statsCommunities() {
+  return request.get('/community/stats')
+}
 export function saveCommunity(data) {
   return request.post('/community', data)
 }
