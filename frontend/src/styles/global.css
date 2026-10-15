@@ -1,0 +1,107 @@
+:root {
+  --cms-primary: #409eff;
+  --cms-bg: #f0f2f5;
+  --cms-radius: 10px;
+}
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  background: var(--cms-bg);
+  color: #303133;
+}
+
+/* ===== 页面卡片 ===== */
+.page-card {
+  background: #fff;
+  border: none;
+  border-radius: var(--cms-radius);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+.page-card .el-card__body {
+  padding: 18px 20px 22px;
+}
+
+/* ===== 页面标题栏 ===== */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2d3d;
+  position: relative;
+  padding-left: 12px;
+  line-height: 1;
+}
+.page-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 16px;
+  background: var(--cms-primary);
+  border-radius: 2px;
+}
+
+/* ===== 搜索栏 ===== */
+.search-bar {
+  background: #f7f9fc;
+  border: 1px solid #ebeef5;
+  border-radius: 8px;
+  padding: 18px 16px 0;
+  margin-bottom: 16px;
+}
+
+/* ===== 表格 ===== */
+.page-card .el-table {
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+}
+.el-table th.el-table__cell {
+  background: #f5f7fa !important;
+  color: #515a6e;
+  font-weight: 600;
+}
+/* 表头文字居中 */
+.el-table th.el-table__cell .cell {
+  text-align: center;
+}
+/* 表体内容居中 */
+.el-table td.el-table__cell .cell {
+  text-align: center;
+}
+.el-table td.el-table__cell,
+.el-table th.el-table__cell {
+  padding: 10px 0;
+}
+/* 长文本不换行，超出省略，鼠标悬停查看完整内容 */
+.el-table .cell {
+  white-space: nowrap;
+}
+/* 操作列按钮间距 */
+.el-table .el-button + .el-button {
+  margin-left: 8px;
+}
+
+/* ===== 分页 ===== */
+.el-pagination {
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+/* ===== 弹窗标题 ===== */
+.el-dialog__title {
+  font-weight: 600;
+}

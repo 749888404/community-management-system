@@ -1,0 +1,38 @@
+# Fly.io 部署配置（替代 Render）
+# 用法：flyctl 安装并登录后，在项目根目录执行 `fly deploy` 即可（远程构建 Dockerfile，无需本地 Docker）。
+# DB_PASSWORD 为敏感信息，不写入本文件，部署前用 `fly secrets set DB_PASSWORD=xxx` 设置（见下方说明）。
+app = "sjz-community"
+primary_region = "sin"            # 新加坡节点，离 TiDB(Tokyo) 最近、国内延迟低
+
+[build]
+  dockerfile = "backend/Dockerfile"
+
+[env]
+  DB_URL = "jdbc:mysql://gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/community_db?useSSL=true&requireSSL=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8"
+  DB_USERNAME = "41VXsfxWJbw4sLq.root"
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 443
+    type = "http"
+    force_https = true
+
+  [[services.ports]]
+    port = 80
+    type = "http"
+
+  [services.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+
+  [[services.http_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "30s"
+    method = "get"
+    path = "/"
+    protocol = "http"

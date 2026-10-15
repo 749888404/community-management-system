@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# 自定义配置
+community:
+  upload-dir: ./uploads
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1024MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 本地默认连 localhost；云端部署（Render 等）通过环境变量注入：
+    #   DB_URL / DB_USERNAME / DB_PASSWORD
+    url: ${DB_URL:jdbc:mysql://localhost:3306/community_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+  mapper-locations: classpath*:mapper/*.xml

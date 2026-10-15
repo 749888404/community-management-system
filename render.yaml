@@ -1,0 +1,18 @@
+# Render 一键部署配置（Blueprint）
+# 用法：GitHub 连上仓库后，New → Blueprint → 选本仓库即可。
+# DB_PASSWORD 为密钥，请在 Render 控制台 Environment 里手动填写（不要写进仓库）。
+services:
+  - type: web
+    name: community-management-system
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
+    region: singapore          # 离 TiDB(Tokyo) 最近，延迟最低
+    healthCheckPath: /
+    envVars:
+      - key: DB_URL
+        value: "jdbc:mysql://gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/community_db?useSSL=true&requireSSL=true&allowPublicKeyRetrieval=true&enabledTLSProtocols=TLSv1.2&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8"
+      - key: DB_USERNAME
+        value: 41VXsfxWJbw4sLq.root
+      - key: DB_PASSWORD
+        sync: false             # 留空，部署前在 Render 控制台填写 TiDB root 密码
