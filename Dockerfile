@@ -15,7 +15,7 @@ COPY --from=build /app/target/*.jar app.jar
 # 上传目录（注意：容器文件系统是临时的，重启会丢，见 DEPLOY.md）
 RUN mkdir -p /app/uploads
 ENV JAVA_OPTS="-XX:MaxRAMPercentage=75.0 -XX:+UseSerialGC"
-# 锁死端口 8080：--server.port 是最高优先级参数，
-# 可压过平台注入的 SERVER_PORT / PORT 等环境变量，保证 Render 路由稳定
+# 端口：优先跟随平台注入的 PORT（Zeabur/Railway 等），未注入时回落 8080（Render）。
+# --server.port 是 Spring Boot 最高优先级参数，可压过 SERVER_PORT 等同名环境变量，保证路由稳定。
 EXPOSE 8080
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar --server.port=8080"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar --server.port=${PORT:-8080}"]
