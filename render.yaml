@@ -5,7 +5,7 @@ services:
   - type: web
     name: community-management-system
     runtime: docker
-    dockerfilePath: ./backend/Dockerfile
+    dockerfilePath: ./Dockerfile   # 根目录 Dockerfile，构建上下文=仓库根（Render 默认行为）
     plan: free
     region: singapore          # 离 TiDB(Tokyo) 最近，延迟最低
     healthCheckPath: /
