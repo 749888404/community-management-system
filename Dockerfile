@@ -4,8 +4,8 @@
 FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY backend/pom.xml .
-# 先拉依赖（利用缓存层，后续改动源码时不必重下依赖）
-RUN mvn dependency:go-offline -B
+# 先拉依赖（利用缓存层）；个别工程 go-offline 会误报解析失败，用 || true 兜底不影响后续 package
+RUN mvn -B -ntp dependency:go-offline || true
 COPY backend/src ./src
 RUN mvn package -DskipTests -B
 
