@@ -24,6 +24,10 @@
           <el-icon><Stamp /></el-icon>
           <span>残疾人管理</span>
         </el-menu-item>
+        <el-menu-item index="/station">
+          <el-icon><Cpu /></el-icon>
+          <span>通讯基站统计</span>
+        </el-menu-item>
         <el-menu-item index="/file">
           <el-icon><Folder /></el-icon>
           <span>文件管理</span>

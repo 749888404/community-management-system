@@ -124,6 +124,37 @@ CREATE TABLE `file_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文件管理表';
 
 -- ----------------------------
+-- 6. 通讯基站统计表
+-- ----------------------------
+DROP TABLE IF EXISTS `base_station`;
+CREATE TABLE `base_station` (
+  `id`               BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `community_id`     BIGINT       DEFAULT NULL COMMENT '关联本系统小区ID（按小区名称自动匹配，可为空）',
+  `community_name`   VARCHAR(100) DEFAULT NULL COMMENT '小区名称',
+  `town_community`   VARCHAR(100) DEFAULT NULL COMMENT '所属乡镇/社区',
+  `build_time`       VARCHAR(100) DEFAULT NULL COMMENT '基站建成时间',
+  `operator_name`    VARCHAR(200) DEFAULT NULL COMMENT '运营商/铁塔(对方主体)',
+  `device_type`      VARCHAR(100) DEFAULT NULL COMMENT '设备类型: 室内分布系统/信号放大器/宏站/微站等',
+  `occupy_position`  VARCHAR(200) DEFAULT NULL COMMENT '占用位置: 楼顶/楼道/地库/弱电井等',
+  `party_a`          VARCHAR(300) DEFAULT NULL COMMENT '合同甲方(签约主体)',
+  `party_b`          VARCHAR(500) DEFAULT NULL COMMENT '合同乙方(运营主体单位)',
+  `sign_time`        VARCHAR(200) DEFAULT NULL COMMENT '合同签订时间',
+  `contract_period`  VARCHAR(500) DEFAULT NULL COMMENT '合同约定期限',
+  `rent_agreement`   VARCHAR(100) DEFAULT NULL COMMENT '租金收入约定',
+  `rent_fee`         VARCHAR(200) DEFAULT NULL COMMENT '租金/场地费(元/年)',
+  `payee`            VARCHAR(300) DEFAULT NULL COMMENT '实际收款方',
+  `power_account`    VARCHAR(100) DEFAULT NULL COMMENT '基站用电户头: 独立电表/转供表/小区总表转供等',
+  `power_price`      VARCHAR(200) DEFAULT NULL COMMENT '物业向基站收取电价(元/度)',
+  `annual_power`     VARCHAR(100) DEFAULT NULL COMMENT '年用电量(度)',
+  `remark`           VARCHAR(500) DEFAULT NULL COMMENT '备注',
+  `create_time`      DATETIME     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time`      DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_bs_community` (`community_id`),
+  KEY `idx_bs_name` (`community_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='通讯基站统计表';
+
+-- ----------------------------
 -- 初始化示例数据
 -- ----------------------------
 INSERT INTO `sys_user` (`username`, `real_name`, `phone`, `role`, `status`) VALUES
