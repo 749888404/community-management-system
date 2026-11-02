@@ -14,7 +14,9 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 # 上传目录（注意：容器文件系统是临时的，重启会丢，见 DEPLOY.md）
 RUN mkdir -p /app/uploads
-ENV JAVA_OPTS="-XX:MaxRAMPercentage=65.0 -XX:+UseSerialGC -Xss512k"
+# 适配 Railway Free 档 0.5GB 内存上限：堆固定 280m，元空间/代码缓存封顶，避免容器被 OOM Kill
+# 开 App Sleeping 后无流量时容器停机不计费，这套参数只在唤醒期间消耗额度
+ENV JAVA_OPTS="-Xms96m -Xmx280m -XX:MaxMetaspaceSize=96m -XX:ReservedCodeCacheSize=48m -XX:+UseSerialGC -Xss384k -Dfile.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError"
 # 端口：优先跟随平台注入的 PORT（Zeabur/Railway 等），未注入时回落 8080（Render）。
 # --server.port 是 Spring Boot 最高优先级参数，可压过 SERVER_PORT 等同名环境变量，保证路由稳定。
 EXPOSE 8080

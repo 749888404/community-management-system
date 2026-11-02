@@ -19,6 +19,15 @@ spring:
     url: ${DB_URL:jdbc:mysql://localhost:3306/community_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
+    # 连接池空闲回收：Railway 的 Serverless 判定「连续 5 分钟无出站流量」才休眠，
+    # 若连接池常驻长连接会被视为活跃。minimum-idle 置 0 + 60 秒空闲回收，
+    # 让无访问时段连接全部释放，容器才能真正休眠（省 Free 档每月 $1 额度）。
+    hikari:
+      minimum-idle: 0
+      idle-timeout: 60000
+      max-lifetime: 300000
+      keepalive-time: 0
+      connection-timeout: 20000
 
 mybatis-plus:
   configuration:
